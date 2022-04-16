@@ -19,7 +19,15 @@ export const CardContent = styled.div`
   padding: 16px;
 `;
 
+export const ImgBox = styled.div`
+  width: 354px;
+height: 330px;
+`;
+
 export const Image = styled.img`
+  width:100%;
+  height:100%;
+  padding-bottom: 24px;
   object-fit:cover;
   background-repeat:no-repeat;
 `;

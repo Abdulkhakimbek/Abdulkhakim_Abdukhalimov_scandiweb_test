@@ -1,8 +1,7 @@
 import styled from "styled-components";
 
 export const Category = styled.div`
-  background: #FFFFFF;
-  padding:80px 102px 191px 100px;
+ 
 `;
 
 export const CategoryContent = styled.div`
@@ -13,8 +12,6 @@ export const CategoryContent = styled.div`
 `;
 
 export const CategoryName = styled.h2`
-  font-family: 'Raleway';
-  font-style: normal;
   font-weight: 400;
   font-size: 42px;
   line-height: 160%;

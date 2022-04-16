@@ -8,9 +8,11 @@ class Card extends React.Component {
     return (
       <Styled.Card>
         <Styled.CardContent>
-          <Styled.Image src={this.props.ImgSrc} />
+          <Styled.ImgBox>
+            <Styled.Image src={this.props.ImgSrc} />
+          </Styled.ImgBox>
           <Styled.ProductName>{this.props.ProductName}</Styled.ProductName>
-          <Styled.ProductPrice>{this.props.ProductPrice}</Styled.ProductPrice>
+          <Styled.ProductPrice>$ {this.props.ProductPrice}</Styled.ProductPrice>
         </Styled.CardContent>
       </Styled.Card>
     );

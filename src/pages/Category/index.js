@@ -1,57 +1,36 @@
 import React from "react";
 import * as Styled from "./style";
 import Card from "../../components/Card";
-import { Product_A, Product_B, Product_C, Product_D } from "../../assets/images";
+
+import { CATEGORIES } from '../../hooks/queries/useCategoriesQuery';
+import { Query } from '@apollo/client/react/components';
 
 class Category extends React.Component {
-
-  images = [
-    {
-      name: 'Apollo Running Short',
-      url: Product_D,
-      price: '$50.00'
-    },
-    {
-      name: 'Apollo Running Short',
-      url: Product_B,
-      price: '$50.00'
-    },
-    {
-      name: 'Apollo Running Short',
-      url: Product_C,
-      price: '$50.00'
-    },
-    {
-      name: 'Apollo Running Short',
-      url: Product_A,
-      price: '$50.00'
-    },
-    {
-      name: 'Apollo Running Short',
-      url: Product_C,
-      price: '$50.00'
-    },
-    {
-      name: 'Apollo Running Short',
-      url: Product_D,
-      price: '$50.00'
-    },
-  ]
 
   render() {
     return (
       <Styled.Category>
         <Styled.CategoryContent>
           <Styled.CategoryName>Category Name</Styled.CategoryName>
-          <Styled.Cards>
-            {this.images.map(image => (
-              <Card
-                ImgSrc={image.url}
-                ProductName={image.name}
-                ProductPrice={image.price}
-              />
-            ))}
-          </Styled.Cards>
+
+          <Query query={CATEGORIES}>
+            {({ loading, error, data }) => {
+              if (error) return <h1>Error...</h1>;
+              if (loading || !data) return <h1>Loading...</h1>;
+
+              return (
+                <Styled.Cards>
+                  {data.category.products.map(item => (
+                    <Card
+                      ImgSrc={item.gallery[0]}
+                      ProductName={item.name}
+                      ProductPrice={item.prices[0].amount}
+                    />
+                  ))}
+                </Styled.Cards>);
+            }}
+          </Query>
+
         </Styled.CategoryContent>
       </Styled.Category>
     );

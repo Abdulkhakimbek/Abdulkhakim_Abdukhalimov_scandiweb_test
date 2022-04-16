@@ -7,6 +7,7 @@ export { default as Product_B } from "./Product_B.png";
 export { default as Product_C } from "./Product_C.png";
 export { default as Product_D } from "./Product_D.png";
 export { default as Product_D_small } from "./Product_D_small.svg";
+export { default as Product_main } from "./Product_main.svg";
 export { default as Rectangle_2135 } from "./Rectangle_2135.png";
 export { default as Empty_Cart } from "./Empty_Cart.svg";
 export { default as greenCart } from "./greenCart.png";

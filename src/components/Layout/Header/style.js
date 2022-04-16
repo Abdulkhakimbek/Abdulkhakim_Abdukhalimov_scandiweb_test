@@ -2,38 +2,40 @@ import styled, { css } from "styled-components";
 import { Cart, GreenBg, Sign_$ } from "../../../assets/images";
 
 export const Header = styled.header`
-  width: 100vw;
-  height: 78px;
+  position: fixed;
+  width: 100%;
   background: #FFFFFF;
-  position: sticky;
   top: 0;
-  z-index:9;
+  z-index: 111;
 `;
 
 export const HeaderContent = styled.div`
-  padding: 24px 101px 0px;
-  display: flex;
-  justify-content: space-between;
-  align-items: start;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1240px;
+    margin: 0 auto;
+    padding-top:24px;
+    padding-bottom: 15px;
 `;
 
 export const Row = styled.div`
   display:flex;
   flex-direction:row;
   justify-content: space-between;
-  align-items: center;
-  ${props => props.WithMarginLeft && css`
-    margin-left:97px;
+  align-items: flex-start;
+  ${props => props.CustomMargin && css`
+      margin-left:90px;
+      margin-right: 7px;
   `}
 `;
 
 export const RowItem = styled.div`
-  padding: 4px 16px 32px;
+  padding: 5px 16px 15px;
 `;
 
 export const Link = styled.a`
-  font-family: 'Raleway';
-  font-style: normal;
   font-weight: 400;
   font-size: 16px;
   line-height: 120%;
@@ -46,7 +48,9 @@ export const Logo = styled.img`
   max-height: 41px;
   object-fit:cover;
   background-repeat:no-repeat;
-  padding:5px 5px 6px;
+  ${props => props.CustomPadding && css`
+      padding-top: 5px;
+  `}
 `;
 
 export const Button = styled.button`
