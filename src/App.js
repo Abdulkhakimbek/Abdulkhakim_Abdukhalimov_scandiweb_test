@@ -1,29 +1,51 @@
-import React from "react";
-import Layout from "./components/Layout";
-import { BrowserRouter, Routes, Route, NavLink } from "react-router-dom";
-import Category from "./pages/Category";
-import PDP from "./pages/PDP";
-import AppMock from "./pages/MockQuery";
+import React, { Suspense } from "react";
+import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
+
+import SpinnerComp from "./base/spinner/Spinner.comp";
+import {
+  fetchInitialDataAsync,
+  selectCategoryNames,
+  selectHasNetworkError,
+  selectIsLoading,
+} from "./redux/shop.reducer";
+
+import HeaderComp from "./components/header/Header.comp";
+import AppRoutes from "./routes";
+import ServerErrorPage from "./pages/serverError/ServerError.page";
 
 class App extends React.Component {
+  componentDidMount() {
+    this.props.fetchInitialData();
+  }
+
   render() {
-    return (
-      <Layout
-        Children={
-          <BrowserRouter>
-            <Routes>
-              <Route path="/" element={<Category />} />
-              <Route path="/category" element={<Category />} />
-              <Route path="/pdp" element={<PDP />} />
-            </Routes>
-          </BrowserRouter>
-        }
-      >
+    const { categoryNames, isLoading, hasNetworkError } = this.props;
 
-
-      </Layout>
-    );
+    if (isLoading) return <SpinnerComp />;
+    else if (hasNetworkError) return <ServerErrorPage />;
+    else
+      return (
+        <>
+          <HeaderComp />
+          <main id="page-container">
+            <Suspense fallback={<SpinnerComp />}>
+              <AppRoutes categoryNames={categoryNames} />
+            </Suspense>
+          </main>
+        </>
+      );
   }
 }
 
-export default App;
+const mapStateToProps = createStructuredSelector({
+  categoryNames: selectCategoryNames,
+  isLoading: selectIsLoading,
+  hasNetworkError: selectHasNetworkError,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  fetchInitialData: () => dispatch(fetchInitialDataAsync()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
